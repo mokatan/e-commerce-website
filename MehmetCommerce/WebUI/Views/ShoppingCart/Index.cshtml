@@ -1,0 +1,29 @@
+﻿@using WebUI.Infrastructure.Abstract;
+@model IEnumerable<ICartItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sepet</h2>
+
+@using (Html.BeginForm("UpdateCart", "ShoppingCart"))
+{
+    int counter = 0;
+    foreach (ICartItem item in Model)
+    {        
+        @Html.Hidden("items[" + counter + "].ProductID", item.Product.ProductID)
+        @Html.LabelFor(x => item.Product.Name, item.Product.Name)
+        @Html.TextBox("items[" + counter + "].ItemCount", item.ItemCount)    
+        @Html.ActionLink("Sil", "DeleteItem", new { productId = item.Product.ProductID })
+        <br />
+        counter++;
+    }
+    
+    
+    
+<input type="submit" value="Sepeti Güncelle" />
+<a href="~/Order/BuyItems">Satın Al</a>
+}
+
+

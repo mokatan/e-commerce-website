@@ -1,0 +1,22 @@
+﻿@using WebUI.Infrastructure.Abstract;
+@model List<ICartItem>
+
+@{
+    ViewBag.Title = "BuyItems";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Satın Alma</h2>
+<p><b>Alınacak Ürünler</b></p>
+    @foreach (var item in Model)
+    {
+        @item.Product.Name @Html.Raw("    ") @Html.Raw("Ürün Adedi: ") @item.ItemCount @Html.Raw("    ") @Html.Raw("Ürün Fiyatı: ") @item.Product.Price.ToString("c")<br />
+    }
+@using (Html.BeginForm("BuyItems","Order"))
+{
+
+    <input type="submit" value="Satın Al" />    
+}
+<script type="text/javascript">
+    setTimeout(function () { window.location = "/home/index"; },3000);
+</script>

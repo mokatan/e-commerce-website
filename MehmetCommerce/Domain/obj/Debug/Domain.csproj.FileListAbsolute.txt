@@ -1,0 +1,8 @@
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\bin\Debug\Domain.dll.config
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\bin\Debug\Domain.dll
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\bin\Debug\Domain.pdb
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\bin\Debug\EntityFramework.dll
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\bin\Debug\EntityFramework.xml
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\obj\Debug\Domain.dll
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\obj\Debug\Domain.pdb
+C:\Users\mehmet\documents\visual studio 2012\Projects\MehmetCommerce\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache

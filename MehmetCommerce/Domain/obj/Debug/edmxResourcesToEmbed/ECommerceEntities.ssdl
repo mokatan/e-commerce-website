@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ECommerceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ECommerceModelStoreContainer">
+    <EntitySet Name="Category" EntityType="ECommerceModel.Store.Category" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Customer" EntityType="ECommerceModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExceptionLog" EntityType="ECommerceModel.Store.ExceptionLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderDetail" EntityType="ECommerceModel.Store.OrderDetail" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="ECommerceModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Product" EntityType="ECommerceModel.Store.Product" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ShoppingCart" EntityType="ECommerceModel.Store.ShoppingCart" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ShoppingCartDetail" EntityType="ECommerceModel.Store.ShoppingCartDetail" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Category_Category1" Association="ECommerceModel.Store.FK_Category_Category1">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExceptionLog_Customer" Association="ECommerceModel.Store.FK_ExceptionLog_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="ExceptionLog" EntitySet="ExceptionLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Orders" Association="ECommerceModel.Store.FK_OrderDetail_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Product" Association="ECommerceModel.Store.FK_OrderDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Customer" Association="ECommerceModel.Store.FK_Orders_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Category" Association="ECommerceModel.Store.FK_Product_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartDetail_Product" Association="ECommerceModel.Store.FK_ShoppingCartDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ShoppingCartDetail" EntitySet="ShoppingCartDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartDetail_ShoppingCart" Association="ECommerceModel.Store.FK_ShoppingCartDetail_ShoppingCart">
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+      <End Role="ShoppingCartDetail" EntitySet="ShoppingCartDetail" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ParentCategoryID" Type="int" />
+    <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ImageId" Type="uniqueidentifier" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="City" Type="int" Nullable="false" />
+    <Property Name="PostalCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Country" Type="int" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="16" />
+    <Property Name="ShoppingCartID" Type="int" Nullable="false" />
+    <Property Name="IsAcountSuspended" Type="bit" Nullable="false" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExceptionLog">
+    <Key>
+      <PropertyRef Name="ExceptionLogID" />
+    </Key>
+    <Property Name="ExceptionLogID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="ExceptionMessage" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Stacktrace" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClientIP" Type="nvarchar" MaxLength="20" />
+    <Property Name="ClientBrowserAgent" Type="nvarchar(max)" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="ProductPrice" Type="money" Nullable="false" />
+    <Property Name="OrderTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentAmount" Type="money" Nullable="false" />
+    <Property Name="DateOrdered" Type="date" Nullable="false" />
+    <Property Name="IsTransactionComplete" Type="int" Nullable="false" />
+    <Property Name="ErrorLog" Type="nvarchar" MaxLength="50" />
+    <Property Name="ErrorMessage" Type="nchar" MaxLength="10" />
+    <Property Name="PaymentDate" Type="date" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="PaymentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ProductDescription" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Rating" Type="float" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="StockCount" Type="int" Nullable="false" />
+    <Property Name="ImageId" Type="uniqueidentifier" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShoppingCart">
+    <Key>
+      <PropertyRef Name="ShoppingCartID" />
+    </Key>
+    <Property Name="ShoppingCartID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="ShoppingCartDetail">
+    <Key>
+      <PropertyRef Name="ShoppingCartDetailId" />
+    </Key>
+    <Property Name="ShoppingCartDetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ShoppingCartId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="ItemCount" Type="int" Nullable="false" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Category_Category1">
+    <End Role="Category" Type="ECommerceModel.Store.Category" Multiplicity="1" />
+    <End Role="Category1" Type="ECommerceModel.Store.Category" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExceptionLog_Customer">
+    <End Role="Customer" Type="ECommerceModel.Store.Customer" Multiplicity="1" />
+    <End Role="ExceptionLog" Type="ECommerceModel.Store.ExceptionLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="ExceptionLog">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Orders">
+    <End Role="Orders" Type="ECommerceModel.Store.Orders" Multiplicity="1" />
+    <End Role="OrderDetail" Type="ECommerceModel.Store.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Product">
+    <End Role="Product" Type="ECommerceModel.Store.Product" Multiplicity="1" />
+    <End Role="OrderDetail" Type="ECommerceModel.Store.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Customer">
+    <End Role="Customer" Type="ECommerceModel.Store.Customer" Multiplicity="1" />
+    <End Role="Orders" Type="ECommerceModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="ECommerceModel.Store.Category" Multiplicity="1" />
+    <End Role="Product" Type="ECommerceModel.Store.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCartDetail_Product">
+    <End Role="Product" Type="ECommerceModel.Store.Product" Multiplicity="1" />
+    <End Role="ShoppingCartDetail" Type="ECommerceModel.Store.ShoppingCartDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ShoppingCartDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCartDetail_ShoppingCart">
+    <End Role="ShoppingCart" Type="ECommerceModel.Store.ShoppingCart" Multiplicity="1" />
+    <End Role="ShoppingCartDetail" Type="ECommerceModel.Store.ShoppingCartDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShoppingCart">
+        <PropertyRef Name="ShoppingCartID" />
+      </Principal>
+      <Dependent Role="ShoppingCartDetail">
+        <PropertyRef Name="ShoppingCartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

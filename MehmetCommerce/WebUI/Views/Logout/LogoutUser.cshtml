@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "LogoutUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Üye Çıkışı</h2>
+@using (Html.BeginForm("LogoutUser", "Logout"))
+{
+    @ViewBag.Result
+}
+
+<script type="text/javascript">
+    setTimeout(function () { window.location = "/home/index"; },3000);
+</script>

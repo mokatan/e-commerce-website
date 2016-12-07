@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ECommerceModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ECommerceEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Category" EntityType="ECommerceModel.Category" />
+    <EntitySet Name="Customer" EntityType="ECommerceModel.Customer" />
+    <EntitySet Name="ExceptionLog" EntityType="ECommerceModel.ExceptionLog" />
+    <EntitySet Name="OrderDetail" EntityType="ECommerceModel.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="ECommerceModel.Orders" />
+    <EntitySet Name="Product" EntityType="ECommerceModel.Product" />
+    <EntitySet Name="ShoppingCart" EntityType="ECommerceModel.ShoppingCart" />
+    <EntitySet Name="ShoppingCartDetail" EntityType="ECommerceModel.ShoppingCartDetail" />
+    <AssociationSet Name="FK_Category_Category1" Association="ECommerceModel.FK_Category_Category1">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Category" Association="ECommerceModel.FK_Product_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExceptionLog_Customer" Association="ECommerceModel.FK_ExceptionLog_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="ExceptionLog" EntitySet="ExceptionLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Customer" Association="ECommerceModel.FK_Orders_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Orders" Association="ECommerceModel.FK_OrderDetail_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Product" Association="ECommerceModel.FK_OrderDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartDetail_Product" Association="ECommerceModel.FK_ShoppingCartDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ShoppingCartDetail" EntitySet="ShoppingCartDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartDetail_ShoppingCart" Association="ECommerceModel.FK_ShoppingCartDetail_ShoppingCart">
+      <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+      <End Role="ShoppingCartDetail" EntitySet="ShoppingCartDetail" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Type="Int32" Name="CategoryID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="ParentCategoryID" />
+    <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Guid" Name="ImageId" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category1" Relationship="ECommerceModel.FK_Category_Category1" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="ECommerceModel.FK_Category_Category1" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="Product" Relationship="ECommerceModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Type="Int32" Name="CustomerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Address" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="City" Nullable="false" />
+    <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Country" Nullable="false" />
+    <Property Type="String" Name="Phone" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="ShoppingCartID" Nullable="false" />
+    <Property Type="Boolean" Name="IsAcountSuspended" Nullable="false" />
+    <Property Type="DateTime" Name="DateEntered" Nullable="false" Precision="0" />
+    <NavigationProperty Name="ExceptionLog" Relationship="ECommerceModel.FK_ExceptionLog_Customer" FromRole="Customer" ToRole="ExceptionLog" />
+    <NavigationProperty Name="Orders" Relationship="ECommerceModel.FK_Orders_Customer" FromRole="Customer" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="ExceptionLog">
+    <Key>
+      <PropertyRef Name="ExceptionLogID" />
+    </Key>
+    <Property Type="Int64" Name="ExceptionLogID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="CustomerID" Nullable="false" />
+    <Property Type="String" Name="ExceptionMessage" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Stacktrace" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ClientIP" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ClientBrowserAgent" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="ECommerceModel.FK_ExceptionLog_Customer" FromRole="ExceptionLog" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Type="Int32" Name="OrderDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="OrderID" Nullable="false" />
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Decimal" Name="ProductPrice" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="DateTime" Name="OrderTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="ECommerceModel.FK_OrderDetail_Orders" FromRole="OrderDetail" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="ECommerceModel.FK_OrderDetail_Product" FromRole="OrderDetail" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Type="Int32" Name="OrderID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Decimal" Name="PaymentAmount" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="DateTime" Name="DateOrdered" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="IsTransactionComplete" Nullable="false" />
+    <Property Type="String" Name="ErrorLog" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ErrorMessage" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="PaymentDate" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="CustomerID" Nullable="false" />
+    <Property Type="Int32" Name="PaymentID" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="ECommerceModel.FK_Orders_Customer" FromRole="Orders" ToRole="Customer" />
+    <NavigationProperty Name="OrderDetail" Relationship="ECommerceModel.FK_OrderDetail_Orders" FromRole="Orders" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Type="Int32" Name="ProductID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Guid" Name="UniqueId" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ProductDescription" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Double" Name="Rating" Nullable="false" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="Int32" Name="StockCount" Nullable="false" />
+    <Property Type="Guid" Name="ImageId" />
+    <Property Type="DateTime" Name="CreationTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="ECommerceModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="OrderDetail" Relationship="ECommerceModel.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
+    <NavigationProperty Name="ShoppingCartDetail" Relationship="ECommerceModel.FK_ShoppingCartDetail_Product" FromRole="Product" ToRole="ShoppingCartDetail" />
+  </EntityType>
+  <EntityType Name="ShoppingCart">
+    <Key>
+      <PropertyRef Name="ShoppingCartID" />
+    </Key>
+    <Property Type="Int32" Name="ShoppingCartID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="ShoppingCartDetail" Relationship="ECommerceModel.FK_ShoppingCartDetail_ShoppingCart" FromRole="ShoppingCart" ToRole="ShoppingCartDetail" />
+  </EntityType>
+  <EntityType Name="ShoppingCartDetail">
+    <Key>
+      <PropertyRef Name="ShoppingCartDetailId" />
+    </Key>
+    <Property Type="Int32" Name="ShoppingCartDetailId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="ShoppingCartId" Nullable="false" />
+    <Property Type="Int32" Name="ProductId" Nullable="false" />
+    <Property Type="Int32" Name="ItemCount" Nullable="false" />
+    <Property Type="DateTime" Name="CreationTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="ECommerceModel.FK_ShoppingCartDetail_Product" FromRole="ShoppingCartDetail" ToRole="Product" />
+    <NavigationProperty Name="ShoppingCart" Relationship="ECommerceModel.FK_ShoppingCartDetail_ShoppingCart" FromRole="ShoppingCartDetail" ToRole="ShoppingCart" />
+  </EntityType>
+  <Association Name="FK_Category_Category1">
+    <End Type="ECommerceModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="ECommerceModel.Category" Role="Category1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Category">
+    <End Type="ECommerceModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="ECommerceModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExceptionLog_Customer">
+    <End Type="ECommerceModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="ECommerceModel.ExceptionLog" Role="ExceptionLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="ExceptionLog">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Customer">
+    <End Type="ECommerceModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="ECommerceModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Orders">
+    <End Type="ECommerceModel.Orders" Role="Orders" Multiplicity="1" />
+    <End Type="ECommerceModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Product">
+    <End Type="ECommerceModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="ECommerceModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCartDetail_Product">
+    <End Type="ECommerceModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="ECommerceModel.ShoppingCartDetail" Role="ShoppingCartDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ShoppingCartDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCartDetail_ShoppingCart">
+    <End Type="ECommerceModel.ShoppingCart" Role="ShoppingCart" Multiplicity="1" />
+    <End Type="ECommerceModel.ShoppingCartDetail" Role="ShoppingCartDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShoppingCart">
+        <PropertyRef Name="ShoppingCartID" />
+      </Principal>
+      <Dependent Role="ShoppingCartDetail">
+        <PropertyRef Name="ShoppingCartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

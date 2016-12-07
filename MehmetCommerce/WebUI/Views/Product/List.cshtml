@@ -1,0 +1,21 @@
+﻿@model List<WebUI.Infrastructure.Abstract.IProduct>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+@foreach (var item in Model)
+{     
+    
+    
+        <a href="@Url.Action("Detail", new { id = item.ProductID })">
+            <h3>@item.Name</h3>
+        </a>
+        <br />
+        <h4>@item.Price.ToString("c")</h4>
+        <br />
+        <br />
+    
+}

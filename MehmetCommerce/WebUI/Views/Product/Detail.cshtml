@@ -1,0 +1,31 @@
+﻿@model WebUI.Infrastructure.Concrete.ProductX
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    function AddToCart(ProductID)
+    {    
+        $.post("/ShoppingCart/AddToCart",{productid:ProductID},function(response){        
+        alert(response.Status)        
+        })
+    }
+
+</script>
+
+<h2>Ürün Detayları</h2><br />
+<a href="">
+    <p><b>Ürün İsmi: </b>@Model.Name</p>
+</a>
+    <p><b>Ürün Fiyatı: </b>@Html.Label(Model.Price.ToString("c"), new  { name="Price"}) <br />   </p> 
+    @*@Html.Label(Model.ProductCategory.CategoryName) <br />*@
+    <p><b>Ürün Puanı: </b>@Html.Label(Model.Rating.ToString()) <br /></p>
+    <p><b>Stok Sayısı: </b>@Html.Label(Model.StockCount.ToString()) <br /></p>
+    <img src="../../Images/@Model.Image" />
+@using (Html.BeginForm("AddToCart", "Product"))
+{
+    @Html.Hidden("productId", Model.ProductID)
+<input type="submit" value="sepete ekle"/>
+}

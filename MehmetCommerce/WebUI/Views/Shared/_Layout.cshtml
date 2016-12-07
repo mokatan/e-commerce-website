@@ -1,0 +1,37 @@
+﻿@using WebUI.Infrastructure.Concrete;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+   @* @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+    <div id="header">
+        <div class="title">E-TİCARET WEB SİTESİ </div> 
+        <div class="menu">
+        @if (SessionUser.UserLoggedIn()) {
+            <label>@SessionUser.Current.FirstName  @SessionUser.Current.LastName</label> <span> | </span> <a href="~/Logout/LogoutUser">Çıkış</a>
+        }
+        else
+        {
+            <a href="~/Login/Index/">Üye Girişi</a> <span> | </span> <a href="~/Membership/Index">Üye Ol</a>
+        }
+             | <a href="~/ShoppingCart/Index">Sepetim</a></div>
+    </div>
+    <div id="categories">
+        @{Html.RenderAction("Menu", "Nav");}
+    </div>
+    <div id ="content">
+        @RenderBody()
+    </div>
+    
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)*@
+</body>
+</html>

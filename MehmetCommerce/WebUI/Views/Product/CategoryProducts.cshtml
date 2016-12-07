@@ -1,0 +1,30 @@
+﻿@model List<WebUI.Infrastructure.Abstract.IProduct>
+
+@{
+    ViewBag.Title = "CategoryProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bu Kategori Altındaki Ürünler</h2><br />
+<div id="product-list-content">
+@foreach (var item in Model)
+{
+    <div class="product-list-item">
+        <img src="../../Images/@item.Image" width="150" height="150" />
+        <p><b>Ürünün İsmi: </b><a href="@Url.Action("Detail", new { id = item.ProductID })">@item.Name</a></p>
+        <p><b>Ürünün Fiyatı: </b>@item.Price.ToString("c") <br /></p>
+        @*<p>Ürünün Derecesi: @item.Rating <br /></p>
+        <p>Ürünün Tanımı: @item.Description <br /></p>*@
+    </div>
+    /*<p><b>Ürünün İsmi: </b><a href="@Url.Action("Detail", new { id = item.ProductID })">
+        @item.Name
+    </a><br /></p>
+    <p><b>Ürünün Fiyatı: </b>@item.Price.ToString("c") <br /></p>
+    @*<p>Ürünün Derecesi: @item.Rating <br /></p>
+    <p>Ürünün Tanımı: @item.Description <br /></p>*@
+    <br />
+    <hr>
+    */
+}
+
+</div>

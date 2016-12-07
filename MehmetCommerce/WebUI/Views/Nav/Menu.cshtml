@@ -1,0 +1,11 @@
+﻿@model List<WebUI.Infrastructure.Abstract.ICategory>
+
+@Html.ActionLink("Home", "List", "Product")
+
+@foreach (var item in Model)
+{
+    <a href="@Url.RouteUrl("default", new { controller = "Product", action = "CategoryProducts", id = item.CategoryID })">
+        <h4>@item.CategoryName</h4>
+    </a>   
+}
+
